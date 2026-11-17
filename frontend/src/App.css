@@ -370,4 +370,33 @@
   .form-actions {
     flex-direction: column;
   }
+
+  .details-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.details-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.details-item > svg {
+  color: #2563eb;
+  flex-shrink: 0;
+}
+
+.details-item p {
+  color: #64748b;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.details-item strong {
+  color: #1e293b;
+  font-weight: 600;
+}
+
 }
