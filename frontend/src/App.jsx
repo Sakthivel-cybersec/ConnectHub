@@ -14,6 +14,8 @@ import Dashboard from "./pages/Dashboard";
 import Contacts from "./pages/Contacts";
 import Categories from "./pages/Categories";
 import Reports from "./pages/Reports";
+import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
 import "./App.css";
 
 function AppLayout() {
@@ -25,6 +27,8 @@ function AppLayout() {
     "/contacts": "Contacts",
     "/categories": "Categories",
     "/reports": "Reports",
+    "/profile": "My Profile",
+    "/settings": "Settings",
   };
 
   const activePage = pageNames[location.pathname] || "Dashboard";
@@ -57,6 +61,8 @@ function AppLayout() {
             <Route path="/contacts" element={<Contacts />} />
             <Route path="/categories" element={<Categories />} />
             <Route path="/reports" element={<Reports />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/settings" element={<Settings />} />
             <Route
               path="*"
               element={<Navigate to="/dashboard" replace />}
