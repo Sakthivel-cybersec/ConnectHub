@@ -1,61 +1,81 @@
-import { useEffect, useState } from "react";
-import { BarChart3, ContactRound, LayoutGrid } from "lucide-react";
-import Categories from "./pages/Categories";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
+
+import Navbar from "./components/Navbar";
+import Sidebar from "./components/Sidebar";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
 import Contacts from "./pages/Contacts";
+import Categories from "./pages/Categories";
 import Reports from "./pages/Reports";
 import "./App.css";
 
-const pages = [
-  { path: "/contacts", label: "Contacts", Icon: ContactRound },
-  { path: "/categories", label: "Categories", Icon: LayoutGrid },
-  { path: "/reports", label: "Reports", Icon: BarChart3 },
-];
+function AppLayout() {
+  const location = useLocation();
+  const navigate = useNavigate();
 
-function getCurrentPath() {
-  const path = window.location.pathname.replace(/\/$/, "") || "/contacts";
-  return pages.some((page) => page.path === path) ? path : "/contacts";
-}
+  const pageNames = {
+    "/dashboard": "Dashboard",
+    "/contacts": "Contacts",
+    "/categories": "Categories",
+    "/reports": "Reports",
+  };
 
-export default function App() {
-  const [currentPath, setCurrentPath] = useState(getCurrentPath);
+  const activePage = pageNames[location.pathname] || "Dashboard";
 
-  useEffect(() => {
-    const syncPath = () => setCurrentPath(getCurrentPath());
-    window.addEventListener("popstate", syncPath);
-    return () => window.removeEventListener("popstate", syncPath);
-  }, []);
+  const handleNavigate = (label) => {
+    const routes = {
+      Dashboard: "/dashboard",
+      Contacts: "/contacts",
+      Categories: "/categories",
+      Reports: "/reports",
+      Logout: "/login",
+    };
 
-  const navigate = (event, path) => {
-    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-    event.preventDefault();
-    if (window.location.pathname !== path) window.history.pushState({}, "", path);
-    setCurrentPath(path);
+    if (routes[label]) navigate(routes[label]);
   };
 
   return (
-    <>
-      <header className="app-header">
-        <a className="app-brand" href="/contacts" onClick={(event) => navigate(event, "/contacts")}>
-          <span className="app-brand-mark" aria-hidden="true"><ContactRound size={19} /></span>
-          <span>ConnectHub</span>
-        </a>
-        <nav className="app-navigation" aria-label="Main navigation">
-          {pages.map(({ path, label, Icon }) => (
-            <a
-              className="app-navigation-link"
-              href={path}
-              key={path}
-              onClick={(event) => navigate(event, path)}
-              aria-current={currentPath === path ? "page" : undefined}
-            >
-              <Icon size={17} aria-hidden="true" />
-              <span>{label}</span>
-            </a>
-          ))}
-        </nav>
-      </header>
+    <div className="app-layout">
+      <Navbar pageTitle={activePage} />
 
-      {currentPath === "/categories" ? <Categories /> : currentPath === "/reports" ? <Reports /> : <Contacts />}
-    </>
+      <div className="app-body">
+        <Sidebar
+          activeItem={activePage}
+          onNavigate={handleNavigate}
+        />
+
+        <div className="app-main">
+          <Routes>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/contacts" element={<Contacts />} />
+            <Route path="/categories" element={<Categories />} />
+            <Route path="/reports" element={<Reports />} />
+            <Route
+              path="*"
+              element={<Navigate to="/dashboard" replace />}
+            />
+          </Routes>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/*" element={<AppLayout />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
