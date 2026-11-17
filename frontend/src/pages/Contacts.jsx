@@ -1,3 +1,4 @@
+
 import { useMemo, useState } from "react";
 import { Plus, Users, UserCheck, Building2 } from "lucide-react";
 import { initialContacts } from "../data/contactData";
@@ -17,7 +18,7 @@ export default function Contacts() {
   const filtered = useMemo(() => contacts.filter(contact => {
     const term = search.toLowerCase();
     const matches = [contact.name, contact.email, contact.company, contact.phone]
-      .some(value => value.toLowerCase().includes(term));
+      .some(value => String(value ?? "").toLowerCase().includes(term));
 
     return matches && (category === "All" || contact.category === category);
   }), [contacts, search, category]);
@@ -48,7 +49,7 @@ export default function Contacts() {
   ];
 
   return (
-    <main className="min-h-screen bg-gray-50 p-5 sm:p-8">
+    <main className="contacts-page">
       {page === "add" && (
         <AddContact onAdd={addContact} onCancel={() => setPage("list")} />
       )}
@@ -66,35 +67,30 @@ export default function Contacts() {
       )}
 
       {page === "list" && (
-        <div className="mx-auto max-w-7xl space-y-7">
-          <div className="flex flex-wrap items-center justify-between gap-4">
+        <>
+          <header className="contacts-header">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Contact Management</h1>
-              <p className="mt-1 text-gray-500">Manage your business contacts in one place.</p>
+              <h1>Contact Management</h1>
+              <p>Manage your business contacts in one place.</p>
             </div>
 
-            <button onClick={() => setPage("add")}
-              className="flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-white">
+            <button className="primary-btn" onClick={() => setPage("add")}>
               <Plus size={18} /> Add Contact
             </button>
-          </div>
+          </header>
 
-          <div className="grid gap-4 sm:grid-cols-3">
+          <section className="stats-grid">
             {stats.map(({ label, value, Icon }) => (
-              <div key={label} className="flex items-center gap-4 rounded-2xl border bg-white p-5">
-                <div className="rounded-xl bg-blue-50 p-3 text-blue-600">
-                  <Icon size={23} />
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500">{label}</p>
-                  <p className="text-2xl font-bold">{value}</p>
-                </div>
-              </div>
+              <article key={label} className="stat-card">
+                <Icon size={24} />
+                <p>{label}</p>
+                <h2>{value}</h2>
+              </article>
             ))}
-          </div>
+          </section>
 
-          <section className="rounded-2xl border bg-white p-5">
-            <h2 className="mb-5 text-lg font-semibold">All Contacts</h2>
+          <section className="contact-section">
+            <h2>All Contacts</h2>
 
             <ContactSearch
               search={search}
@@ -105,13 +101,20 @@ export default function Contacts() {
 
             <ContactTable
               contacts={filtered}
-              onView={contact => { setSelected(contact); setPage("details"); }}
-              onEdit={contact => { setSelected(contact); setPage("edit"); }}
+              onView={contact => {
+                setSelected(contact);
+                setPage("details");
+              }}
+              onEdit={contact => {
+                setSelected(contact);
+                setPage("edit");
+              }}
               onDelete={deleteContact}
             />
           </section>
-        </div>
+        </>
       )}
     </main>
   );
 }
+
