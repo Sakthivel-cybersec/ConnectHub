@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 
 const emptyForm = {
@@ -10,10 +11,14 @@ const emptyForm = {
 };
 
 export default function ContactForm({ initialData, onSubmit, onCancel }) {
-  const [form, setForm] = useState(() => initialData || emptyForm);
+  const [form, setForm] = useState(() => ({
+    ...emptyForm,
+    ...initialData,
+  }));
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setForm(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e) => {
@@ -22,53 +27,66 @@ export default function ContactForm({ initialData, onSubmit, onCancel }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5 rounded-2xl border bg-white p-6">
-      <div className="grid gap-5 sm:grid-cols-2">
+    <form onSubmit={handleSubmit} className="form-card">
+      <div className="form-grid">
         {[
-          ["name", "Full Name", "Enter full name"],
-          ["email", "Email Address", "Enter email"],
-          ["phone", "Phone Number", "Enter phone"],
-          ["company", "Company", "Enter company"],
-        ].map(([name, label, placeholder]) => (
+          ["name", "Full Name", "Enter full name", "text"],
+          ["email", "Email Address", "Enter email address", "email"],
+          ["phone", "Phone Number", "Enter phone number", "tel"],
+          ["company", "Company", "Enter company name", "text"],
+        ].map(([name, label, placeholder, type]) => (
           <div key={name}>
-            <label className="mb-2 block text-sm font-medium text-gray-700">{label}</label>
+            <label htmlFor={name}>{label}</label>
             <input
+              id={name}
               required
-              type={name === "email" ? "email" : "text"}
+              type={type}
               name={name}
               value={form[name]}
               onChange={handleChange}
               placeholder={placeholder}
-              className="w-full rounded-xl border px-4 py-3 outline-none focus:border-blue-500"
             />
           </div>
         ))}
 
         <div>
-          <label className="mb-2 block text-sm font-medium">Category</label>
-          <select name="category" value={form.category} onChange={handleChange}
-            className="w-full rounded-xl border px-4 py-3">
-            {["Employee", "Client", "Vendor", "Business Partner"].map(x =>
-              <option key={x}>{x}</option>
-            )}
+          <label htmlFor="category">Category</label>
+          <select
+            id="category"
+            name="category"
+            value={form.category}
+            onChange={handleChange}
+          >
+            {["Employee", "Client", "Vendor", "Business Partner"].map(item => (
+              <option key={item} value={item}>{item}</option>
+            ))}
           </select>
         </div>
 
         <div>
-          <label className="mb-2 block text-sm font-medium">Status</label>
-          <select name="status" value={form.status} onChange={handleChange}
-            className="w-full rounded-xl border px-4 py-3">
-            <option>Active</option>
-            <option>Inactive</option>
+          <label htmlFor="status">Status</label>
+          <select
+            id="status"
+            name="status"
+            value={form.status}
+            onChange={handleChange}
+          >
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
           </select>
         </div>
       </div>
 
-      <div className="flex gap-3">
-        <button type="submit" className="rounded-xl bg-blue-600 px-6 py-3 text-white">
+      <div className="form-actions">
+        <button type="submit" className="primary-btn">
           Save Contact
         </button>
-        <button type="button" onClick={onCancel} className="rounded-xl border px-6 py-3">
+
+        <button
+          type="button"
+          onClick={onCancel}
+          className="secondary-btn"
+        >
           Cancel
         </button>
       </div>
