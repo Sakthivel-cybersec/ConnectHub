@@ -123,3 +123,102 @@
     display: none;
   }
 }
+
+/* ADMIN PROFILE DROPDOWN */
+
+.navbar-profile-wrapper {
+  position: relative;
+}
+
+.navbar-profile {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.navbar-profile-chevron {
+  color: #7b8496;
+  transition: transform 0.2s ease;
+}
+
+.navbar-profile-chevron.open {
+  transform: rotate(180deg);
+}
+
+.navbar-dropdown {
+  position: absolute;
+  top: calc(100% + 14px);
+  right: 0;
+  width: 230px;
+  padding: 10px;
+  background: #ffffff;
+  border: 1px solid #e8ebf2;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(23, 32, 51, 0.14);
+  z-index: 1000;
+}
+
+.navbar-dropdown-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 12px;
+}
+
+.navbar-dropdown-heading strong {
+  color: #172033;
+  font-size: 14px;
+}
+
+.navbar-dropdown-heading small {
+  color: #7b8496;
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+
+.navbar-dropdown-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 12px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: #59657a;
+  text-align: left;
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.navbar-dropdown-item:hover {
+  background: #f5f7fc;
+  color: #315bea;
+}
+
+.navbar-dropdown-divider {
+  height: 1px;
+  margin: 7px 0;
+  background: #edf0f5;
+}
+
+.navbar-dropdown-logout {
+  color: #e14c58;
+}
+
+.navbar-dropdown-logout:hover {
+  background: #fff0f1;
+  color: #d93645;
+}
+
+/* MOBILE DROPDOWN */
+
+@media (max-width: 600px) {
+  .navbar-dropdown {
+    right: 0;
+    width: 220px;
+  }
+}

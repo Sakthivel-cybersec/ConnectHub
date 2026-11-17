@@ -1,0 +1,158 @@
+.settings-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px;
+}
+
+.settings-header {
+  margin-bottom: 25px;
+}
+
+.settings-header h1 {
+  margin: 0 0 8px;
+  color: #172033;
+  font-size: 26px;
+}
+
+.settings-header p {
+  margin: 0;
+  color: #7b8496;
+  font-size: 14px;
+}
+
+.settings-card {
+  max-width: 800px;
+  margin-bottom: 20px;
+  padding: 24px;
+  background: #ffffff;
+  border: 1px solid #e8ebf2;
+  border-radius: 14px;
+}
+
+.settings-card-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 18px;
+  color: #315bea;
+  border-bottom: 1px solid #edf0f5;
+}
+
+.settings-card-heading h2 {
+  margin: 0 0 5px;
+  color: #172033;
+  font-size: 17px;
+}
+
+.settings-card-heading p {
+  margin: 0;
+  color: #7b8496;
+  font-size: 12px;
+}
+
+.settings-info {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 15px 0;
+  border-bottom: 1px solid #edf0f5;
+}
+
+.settings-info:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.settings-info span {
+  color: #7b8496;
+  font-size: 13px;
+}
+
+.settings-info strong {
+  color: #172033;
+  font-size: 13px;
+}
+
+.settings-toggle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  padding: 17px 0;
+  border-bottom: 1px solid #edf0f5;
+  cursor: pointer;
+}
+
+.settings-toggle-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.settings-toggle-row span {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.settings-toggle-row strong {
+  color: #172033;
+  font-size: 13px;
+}
+
+.settings-toggle-row small {
+  color: #7b8496;
+  font-size: 12px;
+}
+
+.settings-toggle-row input {
+  width: 18px;
+  height: 18px;
+  accent-color: #315bea;
+  cursor: pointer;
+}
+
+.settings-theme-options {
+  display: flex;
+  gap: 12px;
+  padding-top: 20px;
+}
+
+.settings-theme-options button {
+  min-width: 100px;
+  padding: 10px 20px;
+  border: 1px solid #e1e5ee;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #59657a;
+  cursor: pointer;
+}
+
+.settings-theme-options button.selected {
+  border-color: #315bea;
+  background: #eef2ff;
+  color: #315bea;
+  font-weight: 600;
+}
+
+.settings-theme-note,
+.settings-security-note {
+  margin: 15px 0 0;
+  color: #7b8496;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+  .settings-page {
+    padding: 20px 16px;
+  }
+
+  .settings-card {
+    padding: 18px;
+  }
+
+  .settings-info {
+    flex-direction: column;
+    gap: 6px;
+  }
+}
