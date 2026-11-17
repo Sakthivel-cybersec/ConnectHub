@@ -1,3 +1,4 @@
+
 import { ArrowLeft, Mail, Phone, Building2, Tag } from "lucide-react";
 
 export default function ContactDetails({ contact, onBack, onEdit }) {
@@ -11,29 +12,35 @@ export default function ContactDetails({ contact, onBack, onEdit }) {
   ];
 
   return (
-    <div className="space-y-6">
-      <button onClick={onBack} className="flex items-center gap-2 text-gray-500">
-        <ArrowLeft size={18} /> Back to contacts
+    <div className="contacts-page">
+      <button onClick={onBack} className="secondary-btn details-back">
+        <ArrowLeft size={18} />
+        Back to contacts
       </button>
 
-      <div className="rounded-2xl border bg-white p-6">
-        <div className="flex flex-wrap justify-between gap-4">
+      <div className="details-card">
+        <div className="contacts-header">
           <div>
-            <h1 className="text-2xl font-bold">{contact.name}</h1>
-            <p className="text-gray-500">{contact.status}</p>
+            <h1>{contact.name}</h1>
+            <p>
+              <span className={`status ${contact.status?.toLowerCase()}`}>
+                {contact.status}
+              </span>
+            </p>
           </div>
-          <button onClick={onEdit} className="rounded-xl bg-blue-600 px-5 py-3 text-white">
+
+          <button onClick={onEdit} className="primary-btn">
             Edit Contact
           </button>
         </div>
 
-        <div className="mt-8 grid gap-6 sm:grid-cols-2">
+        <div className="details-grid">
           {fields.map(({ label, value, Icon }) => (
-            <div key={label} className="flex items-center gap-3">
-              <Icon className="text-blue-600" />
+            <div key={label} className="details-item">
+              <Icon size={20} />
               <div>
-                <p className="text-xs text-gray-500">{label}</p>
-                <p className="font-medium">{value}</p>
+                <p>{label}</p>
+                <strong>{value || "Not provided"}</strong>
               </div>
             </div>
           ))}
