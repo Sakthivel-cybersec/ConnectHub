@@ -1,24 +1,36 @@
+
 import { Search } from "lucide-react";
 
-export default function ContactSearch({ search, setSearch, category, setCategory }) {
+export default function ContactSearch({
+  search,
+  setSearch,
+  category,
+  setCategory,
+}) {
   return (
-    <div className="flex flex-col sm:flex-row gap-3 mb-5">
-      <div className="relative flex-1">
-        <Search className="absolute left-3 top-3 text-gray-400" size={19} />
+    <div className="search-row">
+      <div className="search-input-wrapper">
+        <Search size={18} />
+
         <input
+          type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search name, email or company..."
-          className="w-full rounded-xl border border-gray-200 bg-white py-3 pl-10 pr-4 outline-none focus:border-blue-500"
+          aria-label="Search contacts"
         />
       </div>
-      <select value={category} onChange={(e) => setCategory(e.target.value)}
-        className="rounded-xl border border-gray-200 bg-white px-4 py-3 outline-none">
+
+      <select
+        value={category}
+        onChange={(e) => setCategory(e.target.value)}
+        aria-label="Filter contacts by category"
+      >
         <option value="All">All Categories</option>
-        <option>Employee</option>
-        <option>Client</option>
-        <option>Vendor</option>
-        <option>Business Partner</option>
+        <option value="Employee">Employee</option>
+        <option value="Client">Client</option>
+        <option value="Vendor">Vendor</option>
+        <option value="Business Partner">Business Partner</option>
       </select>
     </div>
   );
