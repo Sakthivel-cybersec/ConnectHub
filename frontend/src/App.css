@@ -505,3 +505,37 @@
     height: 15px;
   }
 }
+
+/* APPLICATION LAYOUT */
+
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f7f9fc;
+}
+
+.app-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+}
+
+.app-main {
+  flex: 1;
+  min-width: 0;
+  min-height: calc(100vh - 72px);
+  overflow-x: hidden;
+}
+
+@media (max-width: 700px) {
+  .app-body {
+    flex-direction: column;
+  }
+
+  .app-main {
+    min-height: auto;
+    width: 100%;
+  }
+}

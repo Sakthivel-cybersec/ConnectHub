@@ -1,7 +1,7 @@
-import { Users, Bell } from "lucide-react";
+﻿import { Users, Bell } from "lucide-react";
 import "./Navbar.css";
 
-export default function Navbar() {
+export default function Navbar({ pageTitle = "Dashboard" }) {
   return (
     <nav className="navbar">
       <div className="navbar-brand">
@@ -12,7 +12,7 @@ export default function Navbar() {
       </div>
 
       <div className="navbar-right">
-        <span className="navbar-page">Contacts</span>
+        <span className="navbar-page">{pageTitle}</span>
 
         <button
           type="button"
