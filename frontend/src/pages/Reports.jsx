@@ -1,6 +1,7 @@
 import { Download, FileSpreadsheet, TrendingUp } from "lucide-react";
 import ReportSummary from "../components/ReportSummary";
-import { categoryContacts, getReportSummary } from "../data/categoryData";
+import { getReportSummary } from "../data/categoryData";
+import { useContacts } from "../context/ContactContext";
 import { exportCategoriesCSV, exportContactsCSV, exportReportSummaryCSV } from "../utils/exportCSV";
 
 const styles = `
@@ -10,7 +11,8 @@ const styles = `
 `;
 
 export default function Reports() {
-  const summary = getReportSummary(categoryContacts);
+  const { contacts } = useContacts();
+  const summary = getReportSummary(contacts);
   const maxCount = Math.max(1, ...summary.categories.map(({ count }) => count));
 
   return (
@@ -20,9 +22,9 @@ export default function Reports() {
         <div>
           <p className="ch-eyebrow">Insights</p>
           <h1>Contact reports</h1>
-          <p className="ch-lede">A clear snapshot of your sample contact directory.</p>
+          <p className="ch-lede">A clear snapshot of your contact directory.</p>
         </div>
-        <span className="ch-period">Directory summary · Sample data</span>
+        <span className="ch-period">Live directory summary</span>
       </header>
 
       <ReportSummary summary={summary} />
@@ -62,12 +64,12 @@ export default function Reports() {
               <span className="ch-export-copy"><strong>Summary report</strong><span>Total and category counts</span></span>
               <Download size={16} aria-hidden="true" />
             </button>
-            <button className="ch-export-button" type="button" onClick={() => exportCategoriesCSV(categoryContacts)}>
+            <button className="ch-export-button" type="button" onClick={() => exportCategoriesCSV(contacts)}>
               <span className="ch-export-icon"><FileSpreadsheet size={18} /></span>
               <span className="ch-export-copy"><strong>Category details</strong><span>Descriptions and contact totals</span></span>
               <Download size={16} aria-hidden="true" />
             </button>
-            <button className="ch-export-button" type="button" onClick={() => exportContactsCSV(categoryContacts)}>
+            <button className="ch-export-button" type="button" onClick={() => exportContactsCSV(contacts)}>
               <span className="ch-export-icon"><FileSpreadsheet size={18} /></span>
               <span className="ch-export-copy"><strong>Contact list</strong><span>Contact details and categories</span></span>
               <Download size={16} aria-hidden="true" />
@@ -75,7 +77,7 @@ export default function Reports() {
           </div>
         </section>
       </div>
-      <div className="ch-note"><TrendingUp size={15} aria-hidden="true" />These totals are calculated from the shared sample contact list. They are not live or connected to a backend.</div>
+      <div className="ch-note"><TrendingUp size={15} aria-hidden="true" />These totals are calculated from the shared contact list.</div>
     </main>
   );
 }

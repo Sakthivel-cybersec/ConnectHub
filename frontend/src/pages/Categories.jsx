@@ -2,7 +2,8 @@ import { useMemo, useState } from "react";
 import { Search, Users, X } from "lucide-react";
 import CategoryCard from "../components/CategoryCard";
 import CategoryTable from "../components/CategoryTable";
-import { categoryContacts, getCategoryCounts } from "../data/categoryData";
+import { useContacts } from "../context/ContactContext";
+import { getCategoryCounts } from "../data/categoryData";
 
 const styles = `
 .ch-page{--ch-ink:#17243b;--ch-muted:#718096;--ch-line:#e7ecf3;--ch-blue:#3767d5;max-width:1240px;margin:0 auto;padding:38px 28px 56px;color:var(--ch-ink);font-family:Inter,ui-sans-serif,system-ui,sans-serif}
@@ -13,18 +14,19 @@ const styles = `
 `;
 
 export default function Categories() {
+  const { contacts } = useContacts();
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const categoryCounts = useMemo(() => getCategoryCounts(categoryContacts), []);
+  const categoryCounts = useMemo(() => getCategoryCounts(contacts), [contacts]);
   const filteredContacts = useMemo(() => {
     const query = search.trim().toLocaleLowerCase();
-    return categoryContacts.filter((contact) => {
+    return contacts.filter((contact) => {
       const matchesCategory = selectedCategory === "All" || contact.category === selectedCategory;
       const matchesSearch = !query || [contact.name, contact.email, contact.company, contact.phone, contact.location]
         .some((value) => value.toLocaleLowerCase().includes(query));
       return matchesCategory && matchesSearch;
     });
-  }, [search, selectedCategory]);
+  }, [contacts, search, selectedCategory]);
 
   return (
     <main className="ch-page">
@@ -35,7 +37,7 @@ export default function Categories() {
           <h1>Categories</h1>
           <p className="ch-lede">Browse and organize contacts by their relationship to your business.</p>
         </div>
-        <div className="ch-total-pill"><Users size={16} aria-hidden="true" />{categoryContacts.length} contacts</div>
+        <div className="ch-total-pill"><Users size={16} aria-hidden="true" />{contacts.length} contacts</div>
       </header>
 
       <section className="ch-category-grid" aria-label="Contact categories">
@@ -55,7 +57,7 @@ export default function Categories() {
             <h2 className="ch-panel-title" id="category-contacts-heading">
               {selectedCategory === "All" ? "All contacts" : `${selectedCategory} contacts`}
             </h2>
-            <p className="ch-panel-subtitle">Showing {filteredContacts.length} of {categoryContacts.length} sample contacts</p>
+            <p className="ch-panel-subtitle">Showing {filteredContacts.length} of {contacts.length} contacts</p>
           </div>
         </div>
         <div className="ch-toolbar">

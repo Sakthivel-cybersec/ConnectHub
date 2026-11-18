@@ -1,4 +1,4 @@
-import { categoryContacts, categories, getReportSummary } from "../data/categoryData.js";
+import { categories } from "../data/categoryData.js";
 
 function escapeCSVValue(value) {
   const text = value == null ? "" : String(value);
@@ -33,13 +33,13 @@ export function downloadCSV(filename, headers, rows) {
   return true;
 }
 
-export function exportContactsCSV(contacts = categoryContacts) {
+export function exportContactsCSV(contacts) {
   const rows = contacts.map(({ name, email, phone, company, category, status, location }) =>
     [name, email, phone, company, category, status, location]);
   return downloadCSV("connecthub-contacts.csv", ["Name", "Email", "Phone", "Company", "Category", "Status", "Location"], rows);
 }
 
-export function exportCategoriesCSV(contacts = categoryContacts) {
+export function exportCategoriesCSV(contacts) {
   const rows = categories.map(({ name, description }) => [
     name,
     description,
@@ -48,7 +48,7 @@ export function exportCategoriesCSV(contacts = categoryContacts) {
   return downloadCSV("connecthub-categories.csv", ["Category", "Description", "Contact count"], rows);
 }
 
-export function exportReportSummaryCSV(summary = getReportSummary()) {
+export function exportReportSummaryCSV(summary) {
   const rows = [["All contacts", summary.total], ...summary.categories.map(({ name, count }) => [name, count])];
   return downloadCSV("connecthub-contact-report.csv", ["Group", "Contact count"], rows);
 }
