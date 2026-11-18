@@ -1,0 +1,49 @@
+import { ROLES } from "./roles";
+
+export const PERMISSIONS = {
+  DASHBOARD_VIEW: "dashboard:view",
+
+  CONTACTS_VIEW: "contacts:view",
+  CONTACTS_CREATE: "contacts:create",
+  CONTACTS_EDIT: "contacts:edit",
+  CONTACTS_DELETE: "contacts:delete",
+
+  CATEGORIES_VIEW: "categories:view",
+  CATEGORIES_MANAGE: "categories:manage",
+
+  REPORTS_VIEW: "reports:view",
+  REPORTS_EXPORT: "reports:export",
+
+  USERS_VIEW: "users:view",
+  USERS_CREATE: "users:create",
+  USERS_EDIT: "users:edit",
+  USERS_DELETE: "users:delete",
+
+  SETTINGS_MANAGE: "settings:manage",
+};
+
+export const ROLE_PERMISSIONS = {
+  [ROLES.ADMIN]: Object.values(PERMISSIONS),
+
+  [ROLES.MANAGER]: [
+    PERMISSIONS.DASHBOARD_VIEW,
+    PERMISSIONS.CONTACTS_VIEW,
+    PERMISSIONS.CONTACTS_CREATE,
+    PERMISSIONS.CONTACTS_EDIT,
+    PERMISSIONS.CATEGORIES_VIEW,
+    PERMISSIONS.REPORTS_VIEW,
+    PERMISSIONS.REPORTS_EXPORT,
+  ],
+
+  [ROLES.EMPLOYEE]: [
+    PERMISSIONS.DASHBOARD_VIEW,
+    PERMISSIONS.CONTACTS_VIEW,
+    PERMISSIONS.CATEGORIES_VIEW,
+  ],
+
+  [ROLES.VIEWER]: [
+    PERMISSIONS.DASHBOARD_VIEW,
+    PERMISSIONS.CONTACTS_VIEW,
+    PERMISSIONS.CATEGORIES_VIEW,
+  ],
+};
