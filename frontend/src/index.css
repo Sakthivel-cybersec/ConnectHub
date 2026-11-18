@@ -30,3 +30,28 @@ button {
 #root {
   min-height: 100vh;
 }
+
+/* CONNECTHUB GLOBAL THEMES */
+
+.app-layout {
+  --page-bg: #f7f9fc;
+  --card-bg: #ffffff;
+  --text-primary: #172033;
+  --text-secondary: #7b8496;
+  --border-color: #e8ebf2;
+}
+
+.app-layout.theme-dark {
+  --page-bg: #121826;
+  --card-bg: #1e293b;
+  --text-primary: #f1f5f9;
+  --text-secondary: #aab6c8;
+  --border-color: #334155;
+  background: var(--page-bg);
+  color: var(--text-primary);
+}
+
+.app-layout.theme-light {
+  background: var(--page-bg);
+  color: var(--text-primary);
+}

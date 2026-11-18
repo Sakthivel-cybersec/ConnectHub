@@ -315,3 +315,58 @@
     font-size: 11px;
   }
 }
+
+/* DASHBOARD DARK THEME */
+
+.app-layout.theme-dark .dashboard-page {
+  color: #f1f5f9;
+}
+
+.app-layout.theme-dark .dashboard-header h1,
+.app-layout.theme-dark .dashboard-stats .stat-card h2,
+.app-layout.theme-dark .dashboard-panel-header h2,
+.app-layout.theme-dark .dashboard-recent h2,
+.app-layout.theme-dark .dashboard-category-item h3,
+.app-layout.theme-dark .dashboard-activity-empty h3 {
+  color: #f1f5f9;
+}
+
+.app-layout.theme-dark .dashboard-header p,
+.app-layout.theme-dark .dashboard-stats .stat-card p,
+.app-layout.theme-dark .dashboard-panel-header p,
+.app-layout.theme-dark .dashboard-category-item p,
+.app-layout.theme-dark .dashboard-activity-empty p {
+  color: #aab6c8;
+}
+
+.app-layout.theme-dark .dashboard-stats .stat-card,
+.app-layout.theme-dark .dashboard-panel,
+.app-layout.theme-dark .dashboard-recent {
+  background: #1e293b;
+  border-color: #334155;
+  box-shadow: none;
+}
+
+.app-layout.theme-dark .dashboard-category-item {
+  border-bottom-color: #334155;
+}
+
+.app-layout.theme-dark .dashboard-category-item strong,
+.app-layout.theme-dark .dashboard-record-count {
+  background: #263b65;
+  color: #93b4ff;
+}
+
+.app-layout.theme-dark .dashboard-table th {
+  background: #273449;
+  color: #cbd5e1;
+}
+
+.app-layout.theme-dark .dashboard-table td {
+  color: #e2e8f0;
+  border-bottom-color: #334155;
+}
+
+.app-layout.theme-dark .dashboard-table tbody tr:hover {
+  background: #273449;
+}

@@ -156,3 +156,45 @@
     gap: 6px;
   }
 }
+
+/* SETTINGS DARK THEME */
+
+.app-layout.theme-dark .settings-header h1,
+.app-layout.theme-dark .settings-card-heading h2,
+.app-layout.theme-dark .settings-info strong,
+.app-layout.theme-dark .settings-toggle-row strong {
+  color: #f1f5f9;
+}
+
+.app-layout.theme-dark .settings-header p,
+.app-layout.theme-dark .settings-card-heading p,
+.app-layout.theme-dark .settings-info span,
+.app-layout.theme-dark .settings-toggle-row small,
+.app-layout.theme-dark .settings-theme-note,
+.app-layout.theme-dark .settings-security-note {
+  color: #aab6c8;
+}
+
+.app-layout.theme-dark .settings-card {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+.app-layout.theme-dark .settings-card-heading,
+.app-layout.theme-dark .settings-info,
+.app-layout.theme-dark .settings-toggle-row {
+  border-bottom-color: #334155;
+}
+
+.app-layout.theme-dark .settings-theme-options button {
+  background: #273449;
+  border-color: #475569;
+  color: #cbd5e1;
+}
+
+.app-layout.theme-dark .settings-theme-options button.selected {
+  background: #263b65;
+  border-color: #5278d8;
+  color: #93b4ff;
+}
+

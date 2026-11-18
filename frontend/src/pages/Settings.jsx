@@ -7,10 +7,9 @@ import {
 } from "lucide-react";
 import "./Settings.css";
 
-export default function Settings() {
+export default function Settings({ theme, onThemeChange }) {
   const [emailNotifications, setEmailNotifications] = useState(true);
   const [systemNotifications, setSystemNotifications] = useState(true);
-  const [theme, setTheme] = useState("Light");
 
   return (
     <main className="settings-page">
@@ -90,7 +89,7 @@ export default function Settings() {
           <button
             type="button"
             className={theme === "Light" ? "selected" : ""}
-            onClick={() => setTheme("Light")}
+            onClick={() => onThemeChange("Light")}
           >
             Light
           </button>
@@ -98,14 +97,14 @@ export default function Settings() {
           <button
             type="button"
             className={theme === "Dark" ? "selected" : ""}
-            onClick={() => setTheme("Dark")}
+            onClick={() => onThemeChange("Dark")}
           >
             Dark
           </button>
         </div>
 
         <p className="settings-theme-note">
-          Selected theme: {theme}. Theme selection is currently a demo preference.
+          Selected theme: {theme}.
         </p>
       </section>
 

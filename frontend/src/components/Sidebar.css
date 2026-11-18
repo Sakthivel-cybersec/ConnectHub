@@ -126,3 +126,43 @@
     padding-top: 12px;
   }
 }
+
+/* SIDEBAR DARK THEME */
+
+.app-layout.theme-dark .sidebar {
+  background: #1e293b;
+  border-right-color: #334155;
+}
+
+.app-layout.theme-dark .sidebar-heading h2 {
+  color: #f1f5f9;
+}
+
+.app-layout.theme-dark .sidebar-heading p,
+.app-layout.theme-dark .sidebar-section-title {
+  color: #aab6c8;
+}
+
+.app-layout.theme-dark .sidebar-link {
+  color: #cbd5e1;
+}
+
+.app-layout.theme-dark .sidebar-link:hover {
+  background: #334155;
+  color: #93b4ff;
+}
+
+.app-layout.theme-dark .sidebar-link.active {
+  background: #263b65;
+  color: #93b4ff;
+}
+
+.app-layout.theme-dark .sidebar-bottom {
+  border-top-color: #334155;
+}
+
+@media (max-width: 700px) {
+  .app-layout.theme-dark .sidebar {
+    border-bottom-color: #334155;
+  }
+}
