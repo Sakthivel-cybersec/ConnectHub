@@ -222,3 +222,48 @@
     width: 220px;
   }
 }
+
+/* NAVBAR GLOBAL THEME SUPPORT */
+
+.app-layout.theme-dark .navbar {
+  background: #1e293b;
+  border-bottom-color: #334155;
+}
+
+.app-layout.theme-dark .navbar-brand,
+.app-layout.theme-dark .navbar-user-info strong {
+  color: #f1f5f9;
+}
+
+.app-layout.theme-dark .navbar-user-info small,
+.app-layout.theme-dark .navbar-profile-chevron {
+  color: #aab6c8;
+}
+
+.app-layout.theme-dark .navbar-notification {
+  background: #334155;
+  color: #e2e8f0;
+}
+
+.app-layout.theme-dark .navbar-dropdown {
+  background: #1e293b;
+  border-color: #475569;
+}
+
+.app-layout.theme-dark .navbar-dropdown-heading strong {
+  color: #f1f5f9;
+}
+
+.app-layout.theme-dark .navbar-dropdown-heading small,
+.app-layout.theme-dark .navbar-dropdown-item {
+  color: #cbd5e1;
+}
+
+.app-layout.theme-dark .navbar-dropdown-item:hover {
+  background: #334155;
+  color: #93b4ff;
+}
+
+.app-layout.theme-dark .navbar-dropdown-divider {
+  background: #475569;
+}

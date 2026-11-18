@@ -106,3 +106,27 @@
     gap: 22px;
   }
 }
+
+/* PROFILE DARK THEME */
+
+.app-layout.theme-dark .profile-header h1,
+.app-layout.theme-dark .profile-card-header h2,
+.app-layout.theme-dark .profile-detail-item strong {
+  color: #f1f5f9;
+}
+
+.app-layout.theme-dark .profile-header p,
+.app-layout.theme-dark .profile-card-header p,
+.app-layout.theme-dark .profile-detail-item span {
+  color: #aab6c8;
+}
+
+.app-layout.theme-dark .profile-card {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+.app-layout.theme-dark .profile-card-header {
+  border-bottom-color: #334155;
+}
+
