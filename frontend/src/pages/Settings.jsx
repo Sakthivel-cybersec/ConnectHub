@@ -3,8 +3,7 @@ import {
   UserRound,
   Bell,
   Palette,
-  LockKeyhole,
-} from "lucide-react";
+  } from "lucide-react";
 import "./Settings.css";
 
 export default function Settings({ theme, onThemeChange }) {
@@ -107,20 +106,7 @@ export default function Settings({ theme, onThemeChange }) {
           Selected theme: {theme}.
         </p>
       </section>
-
-      <section className="settings-card">
-        <div className="settings-card-heading">
-          <LockKeyhole size={21} />
-          <div>
-            <h2>Security</h2>
-            <p>Password management.</p>
-          </div>
-        </div>
-
-        <p className="settings-security-note">
-          Password management will be available after backend authentication is connected.
-        </p>
-      </section>
     </main>
   );
 }
+
