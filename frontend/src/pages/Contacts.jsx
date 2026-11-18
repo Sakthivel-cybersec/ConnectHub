@@ -1,7 +1,7 @@
 
 import { useMemo, useState } from "react";
 import { Plus, Users, UserCheck, Building2 } from "lucide-react";
-import { initialContacts } from "../data/contactData";
+import { useContacts } from "../context/ContactContext";
 import ContactTable from "../components/ContactTable";
 import ContactSearch from "../components/ContactSearch";
 import AddContact from "./AddContact";
@@ -9,20 +9,27 @@ import EditContact from "./EditContact";
 import ContactDetails from "./ContactDetails";
 
 export default function Contacts() {
-  const [contacts, setContacts] = useState(initialContacts);
+  const {
+    contacts,
+    addContact: addSharedContact,
+    updateContact,
+    deleteContact: deleteSharedContact,
+  } = useContacts();
+
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
   const [page, setPage] = useState("list");
   const [selectedId, setSelectedId] = useState(null);
 
-  // Always get the latest contact data using its ID
+  // Always get the latest contact using its ID
   const selected = contacts.find(
     (contact) => contact.id === selectedId
   );
 
+  // Search and category filtering
   const filtered = useMemo(() => {
     return contacts.filter((contact) => {
-      const term = search.toLowerCase();
+      const term = search.toLowerCase().trim();
 
       const matches = [
         contact.name,
@@ -40,33 +47,26 @@ export default function Contacts() {
     });
   }, [contacts, search, category]);
 
+  // Add contact through shared context
   const addContact = (data) => {
-    setContacts((prev) => [
-      ...prev,
-      { ...data, id: Date.now() },
-    ]);
-
+    addSharedContact(data);
     setPage("list");
   };
 
-  // Update contact using selected contact ID
+  // Update contact through shared context
   const saveContact = (data) => {
-    setContacts((prev) =>
-      prev.map((contact) =>
-        contact.id === selectedId
-          ? { ...data, id: selectedId }
-          : contact
-      )
-    );
-
+    updateContact(selectedId, data);
     setPage("list");
   };
 
+  // Delete contact through shared context
   const deleteContact = (id) => {
-    if (window.confirm("Are you sure you want to delete this contact?")) {
-      setContacts((prev) =>
-        prev.filter((contact) => contact.id !== id)
-      );
+    if (
+      window.confirm(
+        "Are you sure you want to delete this contact?"
+      )
+    ) {
+      deleteSharedContact(id);
 
       if (selectedId === id) {
         setSelectedId(null);
@@ -75,6 +75,7 @@ export default function Contacts() {
     }
   };
 
+  // Contact statistics from shared data
   const stats = [
     {
       label: "Total Contacts",
@@ -91,7 +92,9 @@ export default function Contacts() {
     {
       label: "Companies",
       value: new Set(
-        contacts.map((contact) => contact.company)
+        contacts
+          .map((contact) => contact.company)
+          .filter(Boolean)
       ).size,
       Icon: Building2,
     },
