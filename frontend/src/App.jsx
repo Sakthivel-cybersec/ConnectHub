@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import {
   BrowserRouter,
@@ -17,6 +18,10 @@ import Categories from "./pages/Categories";
 import Reports from "./pages/Reports";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
+
+import ProtectedRoute from "./components/ProtectedRoute";
+import { PERMISSIONS } from "./config/permissions";
+
 import "./App.css";
 
 function AppLayout({ theme, onThemeChange }) {
@@ -43,7 +48,9 @@ function AppLayout({ theme, onThemeChange }) {
       Logout: "/login",
     };
 
-    if (routes[label]) navigate(routes[label]);
+    if (routes[label]) {
+      navigate(routes[label]);
+    }
   };
 
   return (
@@ -58,20 +65,66 @@ function AppLayout({ theme, onThemeChange }) {
 
         <div className="app-main">
           <Routes>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/contacts" element={<Contacts />} />
-            <Route path="/categories" element={<Categories />} />
-            <Route path="/reports" element={<Reports />} />
-            <Route path="/profile" element={<Profile />} />
             <Route
-              path="/settings"
               element={
-                <Settings
-                  theme={theme}
-                  onThemeChange={onThemeChange}
+                <ProtectedRoute
+                  permission={PERMISSIONS.DASHBOARD_VIEW}
                 />
               }
-            />
+            >
+              <Route path="/dashboard" element={<Dashboard />} />
+            </Route>
+
+            <Route
+              element={
+                <ProtectedRoute
+                  permission={PERMISSIONS.CONTACTS_VIEW}
+                />
+              }
+            >
+              <Route path="/contacts" element={<Contacts />} />
+            </Route>
+
+            <Route
+              element={
+                <ProtectedRoute
+                  permission={PERMISSIONS.CATEGORIES_VIEW}
+                />
+              }
+            >
+              <Route path="/categories" element={<Categories />} />
+            </Route>
+
+            <Route
+              element={
+                <ProtectedRoute
+                  permission={PERMISSIONS.REPORTS_VIEW}
+                />
+              }
+            >
+              <Route path="/reports" element={<Reports />} />
+            </Route>
+
+            <Route path="/profile" element={<Profile />} />
+
+            <Route
+              element={
+                <ProtectedRoute
+                  permission={PERMISSIONS.SETTINGS_MANAGE}
+                />
+              }
+            >
+              <Route
+                path="/settings"
+                element={
+                  <Settings
+                    theme={theme}
+                    onThemeChange={onThemeChange}
+                  />
+                }
+              />
+            </Route>
+
             <Route
               path="*"
               element={<Navigate to="/dashboard" replace />}
@@ -95,17 +148,24 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navigate to="/login" replace />} />
-        <Route path="/login" element={<Login />} />
         <Route
-          path="/*"
-          element={
-            <AppLayout
-              theme={theme}
-              onThemeChange={setTheme}
-            />
-          }
+          path="/"
+          element={<Navigate to="/login" replace />}
         />
+
+        <Route path="/login" element={<Login />} />
+
+        <Route element={<ProtectedRoute />}>
+          <Route
+            path="/*"
+            element={
+              <AppLayout
+                theme={theme}
+                onThemeChange={setTheme}
+              />
+            }
+          />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
